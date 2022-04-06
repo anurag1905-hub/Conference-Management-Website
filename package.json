@@ -1,0 +1,15 @@
+{
+  "name": "conferene-management-system",
+  "version": "1.0.0",
+  "description": "Conference Management System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon index.js"
+  },
+  "author": "IIB2020006_013_016_024_040",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
