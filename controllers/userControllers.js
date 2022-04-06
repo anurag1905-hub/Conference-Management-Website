@@ -1,7 +1,7 @@
 module.exports.login = function(req,res){
-    return res.end('Login Page');
+    return res.render('login');
 }
 
 module.exports.signup = function(req,res){
-    return res.end('Signup page');
+    return res.render('signUp');
 }
