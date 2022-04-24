@@ -1,15 +1,39 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const port = 8000;
 const app = express();
 const db = require('./config/mongoose');
 
-// use express Router
-app.use('/',require('./routes'));
+// used for session cookie
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+
+app.use(express.urlencoded());
+app.use(cookieParser());
+app.use(express.static('./assets'));
 
 // set up view engine
 app.set('view engine','ejs');
 app.set('views','./views');
-app.use(express.static('./assets'));
+
+app.use(session({
+    name:'Web Development',
+    secret:'Random Text',
+    saveUninitialized:false,
+    resave:false,
+    cookie:{
+        maxAge: (1000*60*100)
+    }
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
+
+// use express Router
+app.use('/',require('./routes'));
 
 app.listen(port,function(err){
     if(err){

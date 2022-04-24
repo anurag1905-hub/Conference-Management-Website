@@ -13,6 +13,18 @@ const userSchema = new mongoose.Schema({
     name:{
         type:String,
         required:true
+    },
+    gender:{
+        type:String
+    },
+    address:{
+        type:String
+    },
+    accountType:{
+        type:String
+    },
+    institutionName:{
+        type:String
     }
 },{
     timestamps:true
