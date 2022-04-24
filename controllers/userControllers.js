@@ -94,7 +94,17 @@ module.exports.updateLoginInfo = async function(req,res){
     }
 }
 
-module.exports.updateAccountInfo = function(req,res){
-    console.log(req.body);
-    return res.redirect('back');
+module.exports.updateAccountInfo = async function(req,res){
+    let user = await User.findById(req.user._id);
+    if(!user){
+        return res.redirect('back');
+    }
+    else{
+        user.name = req.body.name;
+        user.gender = req.body.gender;
+        user.institutionName = req.body.institutionName;
+        user.address = req.body.address;
+        user.save();
+        return res.redirect('back');
+    }
 }

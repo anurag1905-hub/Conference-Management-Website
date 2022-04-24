@@ -19,5 +19,6 @@ router.get('/profile',passport.checkAuthentication,usersController.profile);
 router.get('/settings',passport.checkAuthentication,usersController.settings);
 router.post('/updateLoginInfo',passport.checkAuthentication,usersController.updateLoginInfo);
 router.post('/updateAccountInfo',passport.checkAuthentication,usersController.updateAccountInfo);
+router.use('/conferences',require('./conferences'));
 
 module.exports = router;
