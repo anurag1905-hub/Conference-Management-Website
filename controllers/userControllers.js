@@ -38,8 +38,6 @@ module.exports.create = function(req,res){
                     return;
                 }
                 else{
-                    user.accountType = "Admin";
-                    user.save();
                     return res.redirect('/users/login');
                 }
             });
@@ -54,6 +52,9 @@ module.exports.createSession = async function(req,res){
     let user = await User.findById(req.user._id);
     if(user.accountType=="Admin"){
         return res.redirect('/admin/home');
+    }
+    else if(user.accountType=="Reviewer"){
+        return res.redirect('/reviewer/home');
     }
     else{
         return res.redirect('/users/home');

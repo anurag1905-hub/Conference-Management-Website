@@ -7,5 +7,6 @@ router.get('/',homeController.home);
 router.get('/contact',homeController.contact);
 router.use('/users',require('./users'));
 router.use('/admin',require('./admin'));
+router.use('/reviewer',require('./reviewer'));
 
 module.exports = router;

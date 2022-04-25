@@ -8,6 +8,7 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const MongoStore = require('connect-mongodb-session')(session);
 
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -17,6 +18,11 @@ app.use(express.static('./assets'));
 app.set('view engine','ejs');
 app.set('views','./views');
 
+const store = new MongoStore({
+    uri: 'mongodb://localhost/conference_users_db' ,
+    collection:'mySessions'
+})
+
 app.use(session({
     name:'Web Development',
     secret:'Random Text',
@@ -24,7 +30,10 @@ app.use(session({
     resave:false,
     cookie:{
         maxAge: (1000*60*100)
-    }
+    },
+    store: store,
+    resave: true,
+    saveUninitialized: true
 }));
 
 app.use(passport.initialize());

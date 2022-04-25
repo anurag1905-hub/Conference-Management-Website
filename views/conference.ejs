@@ -65,6 +65,11 @@
                                 <a href="/users/conferences/announcement/<%=conference._id%>">
                                     <button type="button" class="btn btn-success">Make Announcement</button>
                                 </a>
+                                <% if(conference.status=="Approved By Administrator") { %>
+                                    <a href="/users/conferences/submitPaper/<%=conference._id%>">
+                                        <button type="button" class="btn btn-success">Submit Paper</button>
+                                    </a>
+                                <% } %>
                                 <a href="/users/conferences/cancel/<%=conference._id%>">
                                     <button type="button" class="btn btn-danger">Cancel</button>
                                 </a>

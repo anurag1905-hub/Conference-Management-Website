@@ -74,7 +74,7 @@ module.exports.addAdmin = async function(req,res){
     }
     else{
         let targetUser = await User.findOne({email:req.body.email});
-        if(!targetUser){
+        if(!targetUser||targetUser.accountType=="Reviewer"){
             return res.redirect('back');
         }
         else{
@@ -105,7 +105,7 @@ module.exports.removeAdmin = async function(req,res){
 
 module.exports.loginInfo = async function(req,res){
     let user = await User.findById(req.user._id);
-    if(user.accountType!="Admin"){
+    if(user.accountType=="User"){
         return res.redirect('/users/home');
     }
     else{

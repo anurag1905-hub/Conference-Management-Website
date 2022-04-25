@@ -18,5 +18,6 @@ router.get('/announcement/:id',passport.checkAuthentication,conferenceController
 router.post('/announce/:id',passport.checkAuthentication,conferenceController.announce);
 router.get('/viewAnnouncements/:id',passport.checkAuthentication,conferenceController.viewAnnouncements);
 router.get('/withdrawParticipation/:id',passport.checkAuthentication,conferenceController.withdrawParticipation);
+router.get('/submitPaper/:id',passport.checkAuthentication,conferenceController.submitPaper);
 
 module.exports = router;

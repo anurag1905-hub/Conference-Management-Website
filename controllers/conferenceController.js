@@ -142,3 +142,10 @@ module.exports.withdrawParticipation = async function(req,res){
     let user = await User.findByIdAndUpdate(req.user._id,{$pull:{conferences:req.params.id}});
     return res.redirect('back');
 }
+
+module.exports.submitPaper = async function(req,res){
+    let conference = await Conference.findById(req.params.id);
+    return res.render('submitPaper',{
+        conference:conference
+    });
+}
