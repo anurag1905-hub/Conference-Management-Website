@@ -32,12 +32,16 @@ module.exports.create = function(req,res){
         }
 
         if(!user){
-            User.create(req.body,function(err){
-            if(err){
-                console.log('error in creating user while signing up',err);
-                return;
-            }
-            return res.redirect('/users/login');
+            User.create(req.body,function(err,user){
+                if(err){
+                    console.log('error in creating user while signing up',err);
+                    return;
+                }
+                else{
+                    user.accountType = "Admin";
+                    user.save();
+                    return res.redirect('/users/login');
+                }
             });
         }
         else{
@@ -46,8 +50,14 @@ module.exports.create = function(req,res){
     });
 }
 
-module.exports.createSession = function(req,res){
-    return res.redirect('/users/home');
+module.exports.createSession = async function(req,res){
+    let user = await User.findById(req.user._id);
+    if(user.accountType=="Admin"){
+        return res.redirect('/admin/home');
+    }
+    else{
+        return res.redirect('/users/home');
+    }
 }
 
 module.exports.destroySession = function(req,res){
