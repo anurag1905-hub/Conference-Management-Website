@@ -10,11 +10,11 @@ const conferenceSchema = new mongoose.Schema({
         required:true
     },
     startTime:{
-        type:Date,
+        type:String,
         required:true
     },
     endTime:{
-        type:Date,
+        type:String,
         required:true
     },
     date:{
@@ -24,7 +24,26 @@ const conferenceSchema = new mongoose.Schema({
     venue:{
         type:String,
         required:true
-    }
+    },
+    status:{
+        type:String
+    },
+    creator:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+    },
+    capacityOfRoom:{
+        type:String,
+        required:true
+    },
+    invitedUsers:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    }],
+    announcements:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Announcement'
+    }]
 },{
     timestamps:true
 });

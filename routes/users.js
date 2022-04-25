@@ -12,7 +12,6 @@ router.post('/create-session',passport.authenticate(
     'local',
     {failureRedirect:'/users/signup'},
 ),usersController.createSession);
-router.get('/conferences',passport.checkAuthentication,usersController.conferences);
 router.get('/home',homeController.home);
 router.get('/destroy-session',passport.checkAuthentication,usersController.destroySession);
 router.get('/profile',passport.checkAuthentication,usersController.profile);

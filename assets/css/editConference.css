@@ -3,27 +3,14 @@ body{
     padding:0px;
     background-color: aqua;
 }
-
-.login-info-header {
-    font-size: 2rem;
-    color: red;
-    height: 10%; 
-}
   
-.login-info-box {
-    height: 90%;
-    border: 2px solid red;
-    margin-bottom: 2rem;
-    padding: 1rem;
-}
-  
-.account-info-header {
+.conference-info-header {
     font-size: 2rem;
     color: red;
     height: 10%;
 }
   
-.account-info-box {
+.conference-info-box {
     height: 90%;
     border: 2px solid red;
     width: 100%;

@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="/css/conference.css">
+        <link rel="stylesheet" type="text/css" href="/css/invitations.css">
     </head>
     <body>
         <div class="container-fluid mt-3">
@@ -19,13 +19,13 @@
                             <a class="nav-link" href="/users/home">HOME</a>
                         </li> 
                         <li class="nav-item">
-                            <a class="nav-link active" href="/users/conferences/">MY CONFERENCES</a>
+                            <a class="nav-link" href="/users/conferences/">MY CONFERENCES</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/users/conferences/createConference">CREATE CONFERENCE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/users/conferences/invitations">INVITATIONS</a>
+                            <a class="nav-link active" href="/users/conferences/invitations">INVITATIONS</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/users/settings">SETTINGS</a>
@@ -39,7 +39,7 @@
         </div>
         <div class="container-fluid box">
             <div class="conference-header">
-                UPCOMING CONFERENCES:
+                CONFERENCE INVITATIONS:
             </div>
             <div class="conference-box">
                 <% for(conference of conferences) { %>
@@ -55,27 +55,12 @@
                                 <div class="p-2 bg-info border-bottom border-white">Description - <%=conference.description%></div>
                                 <div class="p-2 bg-info border-bottom border-white">Capacity Of Room - <%=conference.capacityOfRoom%></div>
                             </div>
-                            <% if(conference.creator==locals.user.id){ %>
-                                <a href="/users/conferences/edit/<%=conference._id%>">
-                                    <button type="button" class="btn btn-success">Edit</button>
-                                </a>
-                                <a href="/users/conferences/invite/<%=conference._id%>">
-                                    <button type="button" class="btn btn-success">Invite Users</button>
-                                </a>
-                                <a href="/users/conferences/announcement/<%=conference._id%>">
-                                    <button type="button" class="btn btn-success">Make Announcement</button>
-                                </a>
-                                <a href="/users/conferences/cancel/<%=conference._id%>">
-                                    <button type="button" class="btn btn-danger">Cancel</button>
-                                </a>
-                            <% } else{ %>
-                                <a href="/users/conferences/viewAnnouncements/<%=conference._id%>">
-                                    <button type="button" class="btn btn-success">View Announcements</button>
-                                </a>
-                                <a href="/users/conferences/withdrawParticipation/<%=conference._id%>">
-                                    <button type="button" class="btn btn-danger">Withdraw Participation</button>
-                                </a>
-                            <% } %>
+                            <a href="/users/conferences/accept/<%=conference._id%>">
+                                <button type="button" class="btn btn-success">Accept</button>
+                            </a>
+                            <a href="/users/conferences/reject/<%=conference._id%>">
+                                <button type="button" class="btn btn-danger">Reject</button>
+                            </a>
                         </div>
                     <% } %>
                 <% } %>

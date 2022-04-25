@@ -25,7 +25,15 @@ const userSchema = new mongoose.Schema({
     },
     institutionName:{
         type:String
-    }
+    },
+    conferences:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Conference'
+    }],
+    invitations:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Conference'
+    }]
 },{
     timestamps:true
 });
