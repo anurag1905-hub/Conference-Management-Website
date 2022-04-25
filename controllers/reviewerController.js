@@ -7,7 +7,7 @@ module.exports.reviewhome = async function(req,res){
         return res.redirect('/users/home');
     }
     else{
-        let conferences = await Conferece.find({});
+        let conferences = await Conferece.find({status:"Paper Submitted"});
         return res.render('reviewerhome',{
             conferences:conferences
         });
@@ -79,5 +79,44 @@ module.exports.loginInfo = async function(req,res){
         return res.render('reviewerLoginInfo',{
             profileUser:user
         });
+    }
+}
+
+module.exports.viewPaper = async function(req,res){
+    let user = await User.findById(req.user._id);
+    if(user.accountType!="Reviewer"){
+        return res.redirect('/users/home');
+    }
+    else{
+        let conference = await Conferece.findById(req.params.id);
+        return res.render('viewPaper',{
+            conference:conference
+        });
+    }
+}
+
+module.exports.acceptPaper = async function(req,res){
+    let user = await User.findById(req.user._id);
+    if(user.accountType!="Reviewer"){
+        return res.redirect('/users/home');
+    }
+    else{
+        let conference = await Conferece.findById(req.params.id);
+        conference.status = "Reviewed and Accepted";
+        conference.save();
+        return res.redirect('back');
+    }
+}
+
+module.exports.rejectPaper = async function(req,res){
+    let user = await User.findById(req.user._id);
+    if(user.accountType!="Reviewer"){
+        return res.redirect('/users/home');
+    }
+    else{
+        let conference = await Conferece.findById(req.params.id);
+        conference.status = "Reviewed and Rejected";
+        conference.save();
+        return res.redirect('back');
     }
 }

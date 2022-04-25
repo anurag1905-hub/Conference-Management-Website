@@ -149,3 +149,19 @@ module.exports.submitPaper = async function(req,res){
         conference:conference
     });
 }
+
+module.exports.uploadPaper = async function(req,res){
+    let conference = await Conference.findById(req.params.id);
+    Conference.uploadedPaper(req,res,function(err){
+        if(err){
+            console.log('Multer Error Occured',err);
+            return;
+        }
+        else{
+            conference.paper = Conference.paper_path +'/'+req.file.filename;
+            conference.status = "Paper Submitted";
+            conference.save();
+            return res.redirect('/users/conferences/');
+        }
+    });
+}

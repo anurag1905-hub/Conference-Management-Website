@@ -8,11 +8,14 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const router = require('./routes');
 const MongoStore = require('connect-mongodb-session')(session);
 
 app.use(express.urlencoded());
 app.use(cookieParser());
 app.use(express.static('./assets'));
+
+app.use('/uploads',express.static(__dirname+'/uploads'));
 
 // set up view engine
 app.set('view engine','ejs');

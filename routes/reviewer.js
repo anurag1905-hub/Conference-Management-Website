@@ -8,5 +8,8 @@ router.get('/settings',passport.checkAuthentication,reviewerController.Settings)
 router.post('/addReviewer',passport.checkAuthentication,reviewerController.addReviewer);
 router.get('/removeReviewer/:id',passport.checkAuthentication,reviewerController.removeReviewer);
 router.get('/login-info',passport.checkAuthentication,reviewerController.loginInfo);
+router.get('/viewPaper/:id',passport.checkAuthentication,reviewerController.viewPaper);
+router.get('/acceptPaper/:id',passport.checkAuthentication,reviewerController.acceptPaper);
+router.get('/rejectPaper/:id',passport.checkAuthentication,reviewerController.rejectPaper);
 
 module.exports = router;
