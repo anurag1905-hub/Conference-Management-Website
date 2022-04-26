@@ -10,7 +10,7 @@ router.get('/signup',usersController.signup);
 router.post('/create',usersController.create);
 router.post('/create-session',passport.authenticate(
     'local',
-    {failureRedirect:'/users/signup'},
+    {failureRedirect:'/users/login'},
 ),usersController.createSession);
 router.get('/home',homeController.home);
 router.get('/destroy-session',passport.checkAuthentication,usersController.destroySession);
@@ -19,5 +19,18 @@ router.get('/settings',passport.checkAuthentication,usersController.settings);
 router.post('/updateLoginInfo',passport.checkAuthentication,usersController.updateLoginInfo);
 router.post('/updateAccountInfo',passport.checkAuthentication,usersController.updateAccountInfo);
 router.use('/conferences',require('./conferences'));
+router.get('/reset-password',usersController.reset);
+router.post('/reset-password',usersController.sendResetLink);
+router.get('/reset-password/:token',usersController.resetPassword);
+router.post('/changePassword/:token',usersController.changePassword);
+router.get('/verify-email/:token',usersController.verifyUserEmail);
+router.post('/contactMessage',usersController.contactMessage);
+
+router.get('*',function(req,res){
+    return res.render('notification-template',{
+       message:"Page Not Found!"
+    });
+});
+
 
 module.exports = router;

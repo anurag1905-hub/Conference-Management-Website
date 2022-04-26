@@ -9,4 +9,11 @@ router.use('/users',require('./users'));
 router.use('/admin',require('./admin'));
 router.use('/reviewer',require('./reviewer'));
 
+router.get('*',function(req,res){
+    return res.render('notification-template',{
+       message:"Page Not Found!"
+    });
+});
+
+
 module.exports = router;

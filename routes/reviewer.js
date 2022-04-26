@@ -12,4 +12,11 @@ router.get('/viewPaper/:id',passport.checkAuthentication,reviewerController.view
 router.get('/acceptPaper/:id',passport.checkAuthentication,reviewerController.acceptPaper);
 router.get('/rejectPaper/:id',passport.checkAuthentication,reviewerController.rejectPaper);
 
+router.get('*',function(req,res){
+    return res.render('notification-template',{
+       message:"Page Not Found!"
+    });
+});
+
+
 module.exports = router;

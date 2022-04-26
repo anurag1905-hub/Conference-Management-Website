@@ -21,4 +21,11 @@ router.get('/withdrawParticipation/:id',passport.checkAuthentication,conferenceC
 router.get('/submitPaper/:id',passport.checkAuthentication,conferenceController.submitPaper);
 router.post('/submitPaper/:id',passport.checkAuthentication,conferenceController.uploadPaper);
 
+router.get('*',function(req,res){
+    return res.render('notification-template',{
+       message:"Page Not Found!"
+    });
+});
+
+
 module.exports = router;

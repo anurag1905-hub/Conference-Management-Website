@@ -1,4 +1,10 @@
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
+const resetPassword = require('../models/reset-password');
+const emailVerificationMailer = require('../mailers/emailVerification_mailer');
+const verifyEmail = require('../models/verifyEmail');
+const messageMailer = require('../mailers/messageMailer');
+const passwordsMailer = require('../mailers/passwords_mailer');
 
 module.exports.login = function(req,res){
     if(req.isAuthenticated()){
@@ -24,28 +30,31 @@ module.exports.conferences = function(req,res){
     });
 }
 
-module.exports.create = function(req,res){
-    User.findOne({email:req.body.email},function(err,user){
-        if(err){
-            console.log('error in finding user in signing up');
-            return;
-        }
-
-        if(!user){
-            User.create(req.body,function(err,user){
-                if(err){
-                    console.log('error in creating user while signing up',err);
-                    return;
-                }
-                else{
-                    return res.redirect('/users/login');
-                }
-            });
+module.exports.create = async function(req,res){
+    try{
+        let user = await User.findOne({email:req.body.email});
+        if(user){
+            console.log('User Already Exists');
+            return res.redirect('/users/signup');
         }
         else{
-        return res.redirect('/users/login');
+            let verifyemail = await verifyEmail.create({
+                email:req.body.email,
+                accesstoken: jwt.sign({email:req.body.email},"secretCode",{expiresIn:'10000000'}),
+                isValid: true,
+                password:req.body.password,
+                name:req.body.name
+            });
+
+            emailVerificationMailer.verify(verifyemail);
+
+            return res.render('notification-template',{
+                message:"An email has been sent to your email account for verification"
+            });
         }
-    });
+    }catch(err){
+        return res.redirect('/users/signup');
+    }
 }
 
 module.exports.createSession = async function(req,res){
@@ -117,5 +126,118 @@ module.exports.updateAccountInfo = async function(req,res){
         user.address = req.body.address;
         user.save();
         return res.redirect('back');
+    }
+}
+
+module.exports.reset = function(req,res){
+    return res.render('reset-password');
+}
+
+module.exports.sendResetLink = async function(req,res){
+    try{
+        let user = await User.findOne({email:req.body.email});
+        if(!user){
+            console.log('user not found');
+            return res.redirect('back');
+        }
+        let reset_password = await resetPassword.create({
+            user: user._id,
+            accesstoken: jwt.sign(user.toJSON(),"secretCode",{expiresIn:'10000000'}),
+            isValid: true
+        });
+        let reset_Password = await resetPassword.findById(reset_password._id).populate('user');
+        passwordsMailer.reset(reset_Password);
+
+        return res.render('notification-template',{
+            message:"A link to reset password has been sent to your email account"
+        });
+
+    }catch(err){
+        console.log('An error occured',err);
+        return res.redirect('back');
+    }
+
+}
+
+module.exports.resetPassword = async function(req,res){
+    try{
+        let accessToken = req.params.token;
+        let user_account = await resetPassword.findOne({accesstoken:accessToken});
+        if(user_account){
+            return res.render('changePassword',{
+                token:accessToken
+            });
+        }
+        else{
+            return res.render('notification-template',{
+                message:"Invalid or expired token"
+            });
+        }
+    }catch(err){
+        return res.redirect('/users/login');
+    }
+}
+
+module.exports.changePassword = async function(req,res){
+    let password = req.body.password;
+    let confirm_password = req.body.confirmPassword;
+    if(password!=confirm_password){
+        return res.redirect('back');
+    }
+    let accessToken = req.params.token;
+    let user_account = await resetPassword.findOne({accesstoken:accessToken});
+    if(user_account&&user_account.isValid==true){
+        let user = await User.findById(user_account.user);
+        if(user){
+            user.password = password;
+            user.save();
+
+            await resetPassword.deleteMany({user:user_account.user});
+
+            user_account.remove();
+            return res.redirect('/users/login');
+        }
+        else{
+            return res.redirect('back');
+        }
+    }
+    else{
+        return res.render('notification-template',{
+            message:"Invalid or Expired Token"
+        });
+    }
+}
+
+module.exports.contactMessage = function(req,res){
+    let message = req.body;
+    messageMailer.sendMessage(message);
+    return res.redirect('back');
+}
+
+module.exports.verifyUserEmail = async function(req,res){
+    try{
+        let accessToken = req.params.token;
+        let email_to_verify = await verifyEmail.findOne({accesstoken:accessToken});
+        if(email_to_verify){
+            let user = await User.create({
+                email:email_to_verify.email,
+                password:email_to_verify.password,
+                isAdmin:false,
+                name:email_to_verify.name
+            });
+
+            await verifyEmail.deleteMany({email:email_to_verify.email});
+
+            email_to_verify.remove();
+            return res.redirect('/users/login');
+        }
+        else{
+            return res.render('notification-template',{
+                message:"Invalid or expired token"
+            });
+        }
+    }catch(err){
+        console.log('An Error Occurred',err);
+        return res.redirect('/users/login');
     }
 }

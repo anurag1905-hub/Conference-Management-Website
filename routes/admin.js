@@ -11,4 +11,11 @@ router.post('/addAdmin',passport.checkAuthentication,adminController.addAdmin);
 router.get('/removeAdmin/:id',passport.checkAuthentication,adminController.removeAdmin);
 router.get('/login-info',passport.checkAuthentication,adminController.loginInfo);
 
+router.get('*',function(req,res){
+    return res.render('notification-template',{
+       message:"Page Not Found!"
+    });
+});
+
+
 module.exports = router;
