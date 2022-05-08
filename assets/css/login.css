@@ -1,11 +1,8 @@
-html {
-    font-size: 12px;
-}
-  
 body {
     margin: 0px;
     padding: 0px;
-    background-image: url("/images/authentication_background.jpg");
+    /* background-image: url("/images/authentication_background.jpg"); */
+    background-color: aqua;
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -16,12 +13,12 @@ body {
 #container {
     position: absolute;
     background-color: white;
-    height: 70vh;
-    width: 50vw;
-    top: 50%;
-    left: 10%;
-    transform: translate(0%, -50%);
-    max-width: 35rem; 
+    height: 75vh;
+    width: 30vw;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* max-width: 420px;  */
 }
 
 #container-header {
@@ -31,11 +28,11 @@ body {
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
-    padding: 0.5rem; 
+    padding: 6px; 
 }
   
 .container-header-text {
-    font-size: 4rem;
+    font-size: 48px;
     font-weight: 550;
     font-family: Verdana, Tahoma, sans-serif; 
 }
@@ -67,19 +64,19 @@ body {
 #form-item input {
     width: 90%;
     margin: auto;
-    padding: 0.5rem;
+    padding: 6px;
     border: none;
     border-bottom: 1px solid black;
     outline: none;
-    font-size: 1.5rem; 
+    font-size: 18px; 
 }
 
 #form-item button {
     width: 80%;
     margin: auto;
     display: block;
-    padding: 0.5rem;
-    font-size: 1.5rem;
+    padding: 6px;
+    font-size: 18px;
     border: 1px solid black;
     background-color: green;
     color: white; 
@@ -91,7 +88,7 @@ body {
 }
   
 #login-link {
-    font-size: 1.3rem; 
+    font-size: 15px; 
 }
   
 /*Media Query*/
@@ -105,3 +102,7 @@ body {
         left: 50%;
         transform: translate(-50%, -50%); 
 }   }
+
+.nav-item ul li {
+    font-size:20px !important;
+}

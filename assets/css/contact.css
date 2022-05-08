@@ -1,12 +1,12 @@
 html {
-    font-size: 15px; }
+    font-size: 14px; }
   
     body {
       background-color:aqua;
     }
   
   .heading {
-    font-size: 2rem; }
+    font-size: 28px; }
   
   .header {
     border-bottom: 4px solid red; }
@@ -17,22 +17,23 @@ html {
   
   .box {
     height: auto;
-    min-height: 70vh;
+    min-height: 63vh;
+    margin-bottom:14px;
     background-color: lightgrey;
-    padding: 1rem;
+    padding: 14px;
     display: flex;
     flex-direction: column; }
   
   .contact-header {
-    padding: 1rem;
-    font-size: 2rem;
+    padding: 14px;
+    font-size: 28px;
     color: red;
     height: 10%; }
   
   .contact-box {
     height: 90%;
     min-height: 63vh;
-    padding: 1rem; }
+    padding: 14px; }
   
   /*Section*/
   section {
@@ -49,35 +50,35 @@ html {
     background: linear-gradient(90deg, #2857a4 60%, #403066); }
     #contact #myaddress p {
       color: white;
-      font-size: 1.5rem;
+      font-size: 21px;
       font-weight: 550;
       display: inline-block; }
     #contact #myaddress #contact-location span {
       color: white;
-      font-size: 1.5rem;
+      font-size: 21px;
       display: inline-block;
-      margin-bottom: 1rem; }
+      margin-bottom: 14px; }
     #contact #myaddress #contact-mobile span {
       color: white;
-      font-size: 1.5rem;
+      font-size: 21px;
       display: inline-block;
-      margin-bottom: 1rem; }
+      margin-bottom: 14px; }
     #contact #myaddress #contact-email span {
       color: white;
-      font-size: 1.5rem;
+      font-size: 21px;
       display: inline-block;
-      margin-bottom: 1rem; }
+      margin-bottom: 14px; }
     #contact #message-submit {
       margin: auto;
-      margin-top: 1rem;
+      margin-top: 14px;
       display: block; }
   
   #contact-header {
     color: white;
-    font-size: 2.9rem;
+    font-size: 42px;
     font-weight: 530;
-    margin-top: 1.5rem;
-    margin-bottom: 3.5rem; }
+    margin-top: 14px;
+    margin-bottom: 49px; }
   
   #flex_user {
     height: auto;
@@ -95,12 +96,12 @@ html {
     #other-info #connect span {
       display: inline-block;
       color: white;
-      font-size: 1.8rem;
+      font-size: 25px;
       font-weight: 550; }
     #other-info #connect #connect-text {
       display: inline-block;
       color: white;
-      font-size: 1.2rem;
+      font-size: 17px;
       text-align: justify; }
   
   /*Contact Section's message-section*/
@@ -115,17 +116,17 @@ html {
     border-bottom: 2px solid white;
     background-color: transparent;
     display: inline-block;
-    margin-bottom: 2.7rem;
+    margin-bottom: 37.8px;
     width: 100%;
     color: white;
-    height: 2rem;
-    padding-left: 0.4rem; }
+    height: 28px;
+    padding-left: 5.6px; }
   
   #contact input[type="submit"] {
     color: white;
     background-color: transparent;
     border: 2px solid white;
-    padding: 0.8rem 0.8rem;
+    padding: 11.2px 11.2px;
     font-weight: 550;
     display: inline-block; }
   
@@ -136,8 +137,8 @@ html {
   @media screen and (max-width: 728px) {
     #other-info {
       width: 80%;
-      margin-top: 10rem;
-      margin-bottom: 5rem; }
+      margin-top: 140px;
+      margin-bottom: 70px; }
     #message-section {
       width: 80%; } }
   
@@ -145,3 +146,7 @@ html {
     padding: 0px; }
     .dropdown-menu a {
       border-bottom: 1px solid black; }
+
+.collapse ul li {
+    font-size:17px !important;
+}

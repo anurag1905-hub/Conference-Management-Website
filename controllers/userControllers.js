@@ -182,6 +182,7 @@ module.exports.changePassword = async function(req,res){
     let password = req.body.password;
     let confirm_password = req.body.confirmPassword;
     if(password!=confirm_password){
+        console.log('password mismatch');
         return res.redirect('back');
     }
     let accessToken = req.params.token;
@@ -198,6 +199,7 @@ module.exports.changePassword = async function(req,res){
             return res.redirect('/users/login');
         }
         else{
+            console.log('User not found');
             return res.redirect('back');
         }
     }
