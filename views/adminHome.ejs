@@ -37,6 +37,7 @@
                 CONFERENCE REQUESTS:
             </div>
             <div class="conference-box">
+                <% if(conferences.length) { %>
                 <% for(conference of conferences) { %>
                     <% if(conference) { %>
                         <div class="conference">
@@ -58,6 +59,9 @@
                             </a>
                         </div>
                     <% } %>
+                <% } %>
+                <% } else { %>
+                    <p style="margin-left:12px;font-weight:750">Conference Requests will appear here.</p>
                 <% } %>
             </div>  
         </div>

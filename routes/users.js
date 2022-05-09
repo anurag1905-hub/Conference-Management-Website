@@ -26,6 +26,9 @@ router.post('/changePassword/:token',usersController.changePassword);
 router.get('/verify-email/:token',usersController.verifyUserEmail);
 router.post('/contactMessage',usersController.contactMessage);
 
+router.get('/auth/google',passport.authenticate('google',{scope:['profile','email']}));
+router.get('/auth/google/callback',passport.authenticate('google',{failureRedirect:'/users/login'}),usersController.createSession);
+
 router.get('*',function(req,res){
     return res.render('notification-template',{
        message:"Page Not Found!"
